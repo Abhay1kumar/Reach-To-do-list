@@ -1,244 +1,92 @@
-// let labors=[
-//     {
-//     name: 'labor1',
-//     payment:100
-// },
-// {
-//     name: 'labor2',
-//     payment:150
-// },
-// {
-//     name: 'labor3',
-//     payment:250
-// }
-// ]
 
-// forEach method in labor
-// labor.forEach((labors)=>{
-//     labors.payment=labors.payment - 20;
-//     console.log(labors);
-// });
+const refreshButton = document.querySelector('.grid');
 
 
-//for of loop
-// for (let labor of labors) {
-//     labor.payment=labor.payment - 20;
-    // console.log(labor)
-// }
+//EVENT LISTENERS
 
-// console.log(labors);
+window.addEventListener('load', createImageGrid);
 
-// for (let i =0; i < labor.length; i++){
-// labor[i].payment=labor[i].payment-10;
-// // console.log(labor[i].payment);
-// }
-// console.log(labor);
+refreshButton.addEventListener('click', createImageGrid);
 
 
+function createImageGrid(){
+    fetch('https://dog.ceo/api/breeds/image/random/3')
+    .then(response => response.json())
+    .then(data => createGrid(data.message))
+    .catch(error => console.log(error))
+  }
 
-//add item in the array at last position
-// labor.push({
-//     name: 'labor4',
-//     payment:200
-// })
-
-// add item in the array at first position
-// labor.unshift({
-//     name:"labor-head",
-//     payment:300
-// })
-
-// delete item in the array at last position
-// labor.pop()
-
-
-// delete item in the array at first position
-// labor.shift()
-
-// console.log(labor);
-
-
-//filter array of items
-
-// const students =[
-//     {
-//         name:"Student1",
-//         marks:48
-//     },
-//     {
-//         name:"Student2",
-//         marks:50
-//     },
-//     {
-//         name:"Student3",
-//         marks:36
-//     },
-//     {
-//         name:"Student4",
-//         marks:40
-//     }
-// ]
-
-// console.log(students);
-
-// let failed = students.filter((student)=> student.marks>45)
-
-// console.log(failed);
-
-// map function 
-// let fullData= students.map((student)=> {
-//     // return student.name + " " + student.marks
-
-//     // return {
-//     //    fulldata: student.name + " " + student.marks 
-//     //     }
-//     return `Fulldata: ${student.name} ${student.marks}`
-// })
-
-// console.log(fullData);
-
-// total marks add  using reduse functino
-// let totalMarks=0;
-// students.forEach((student)=>   totalMarks+=student.marks
-// )
-// console.log(totalMarks);
-
-// let total=students.reduce((acc, student)=>{
-//     acc= acc + student.marks
-//     return acc;
-//     // console.log(acc);
-// },0);
-// console.log(total);
-
-// const users =[
-//     {
-//         name: "xyz",
-//         id: 3
-//     },
-//     {
-//         name: "xy",
-//         id: 5
-//     },
-//     {
-//         name: "xyr",
-//         id: 7
-//     }
-// ];
-
-// let finddata= users.find((user) => {
-//     return user.id ===4;
-
-//     // if(user.id === 3){
-//     //     return true;
-//     // }
-//     //     return false;
-// })
-// console.log(finddata);
-
-
-// ****************************************************************
-// sort method"
-
-// const array = ["ram","abhay","sachin","parth","abhishek","dinesh"];
-
-// array.sort();
-// console.log(array);
-
-// splice`` delete any item
-
-// const array = ["ram","abhay","sachin","parth","abhishek","dinesh"];
-
-// array.splice(2,3);
-// console.log(array);
-
-
-let students =[
-    {
-        name: "Student-1",
-        marks:56,
-        rollNo:1
-    },
-    {
-        name: "Student-2",
-        marks:60,
-        rollNo:2
-    },
-    {
-        name: "Student-3",
-        marks:34,
-        rollNo:3
-    },
-    {
-        name: "Student-4",
-        marks:40,
-        rollNo:4
-    },
-    {
-        name: "Student-5",
-        marks:30,
-        rollNo:5
-    },
-    {
-        name: "Student-6",
-        marks:56,
-        rollNo:6
-    },
-    {
-        name: "Student-7",
-        marks:42,
-        rollNo:7
-    },
-    {
-        name: "Student-8",
-        marks:50,
-        rollNo:8
-    }
-];
-console.log("**************Find*********************************")
-
-// first find the object 
-
-let myStudent = students.find((student)=> student.rollNo===1)
+  
+  //populate List
+  function populateList(){
+    fetch('https://dog.ceo/api/breeds/list/all')
     
-console.log(myStudent);
+      .then(response => response.json())
+      .then(data => createListItems(data.message))
+      .catch(error => console.log(error))
+  }
+  
+  //getBreedImage
+  function getBreedImage(){
+    let url = `https://dog.ceo/api/breed/${selectedBreed}/images`;
+    //fetch call
+    fetch(url)
 
-// use filter method of array 
-console.log("**************filter*********************************")
-
-let passedStudent = students.filter((student)=> student.marks<45)
-console.log(passedStudent);
-
-let totalmarks= students.reduce((acc, student)=>{
-    acc += student.marks
-    return acc;
-},0);
-
-console.log(totalmarks);
-
-console.log("**************forEach*********************************")
-
-students.forEach((student,index)=> console.log(index,student));
-let myarray = [];
-let marks = [];
-let total = 0;
-students.forEach((student)=>{
-
-    marks.push(student.marks)
-    total+=  student.marks
-
-myarray.push(student.name)
-
-})
-console.log(total);
-console.log(marks);
-console.log(myarray);
-
-console.log("*************************map**************************");
-
-
-let newarray= students.map((student)=>{
-    return student.name + " " + student.marks
-})
-
-console.log(newarray);
-
+      .then(response => response.json())
+      .then(data => getImageURL(data.message))
+      .catch(error => console.log(error))
+  }
+  
+  
+  //fixBreed
+  function fixBreed(breedName){
+    if(breedName === 'germanshepherd'){
+      return 'German Shepherd';
+    }else if(breedName === 'mexicanhairless'){
+      return 'Mexican Hairless';
+    }else if(breedName === 'stbernard'){
+      return 'St. Bernard';
+    }else if(breedName === "african"){
+      return 'African Wild Dog';
+    }else if(breedName === 'bullterrier'){
+      return 'Bull Terier';
+    }
+    return capitalize(breedName);
+  }
+  
+  //capitalize breed name
+  function capitalize(breedName){
+    return breedName.replace(/\-/g,' ')
+                    .split(" ")
+                    .map(word => word.charAt(0).toUpperCase()+word.slice(1))
+                            .join(" ");
+  }
+  
+  //extract breed name
+  function extractBreedName(data){
+    let regex = /https:\/\/images\.dog\.ceo\/breeds\/(\w+-?\w+)\/\w+\.\w+/g;
+    let match = regex.exec(data);
+    return fixBreed(match[1]);
+  }
+  
+  //createGrid
+  function createGrid(data){
+    let output = '';
+    const container = document.querySelector('.card-deck');
+    data.map(item =>{
+      output+=
+      `
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">${extractBreedName(item)}</h4>
+        </div>
+        <div class="card-body">
+          <img src="${item}" class="img-fluid" alt="${extractBreedName(item)}"/>
+        </div>
+      </div>    
+      `
+    })
+      container.innerHTML = output;
+  }
+  
+  
