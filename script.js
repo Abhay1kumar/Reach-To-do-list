@@ -1,3 +1,7 @@
+const name_person = document.getElementById('name')
+let person= prompt("Enter your name",);
+name_person.innerHTML=`<p>Hey!😀 ${person} thanks for coming here. lets click on buttons and see pictures.</p>`;
+
 
 const dog_btn=document.getElementById('dog-btn');
 const cat_btn=document.getElementById('cat-btn');

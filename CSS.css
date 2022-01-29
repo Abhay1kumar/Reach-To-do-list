@@ -1,6 +1,6 @@
 div{
     text-align: center;
-    margin:5px;
+    margin:10px;
 }
 .container{
     margin: 0;
@@ -10,9 +10,7 @@ div{
     justify-content: center;
 flex-wrap: wrap;
   }
-  .dog{
-      margin-left: 150px;
-  }
+ 
 
   body{
       background-color: grey;
@@ -24,4 +22,12 @@ flex-wrap: wrap;
       font-weight: bold;
   }
 
+
+  #name{
+      display:flex;
+      justify-content:right;
+      font-weight: bold;
+      font-family: "Helvetica Neue";
+      margin: 10px;
+  }
   
