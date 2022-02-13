@@ -1,8 +1,47 @@
-p{
-    border: 1px solid black;
-    text-align: center;
-    background-color:blue;
-    color: white;
-    font-weight: bold;
-    padding: 3px;
+body{
+    height: 700px;
+    align-content: center;
+   text-align: center;
+}
+.container{
+    display:flex;
+  justify-content: center;
+}
+
+.item-1{
+    border:2px solid black;
+    height: 280px;
+   color:white;
+   display: flex;
+   font-weight: bold;
+   text-transform:uppercase;
+    width: 300px;
+}
+.btn{
+    width: 100px;
+    height: 30px;
+    background-color: blue;
+}
+.button{
+    margin-top:10px;
+}
+.items{
+    background-color:rgb(205, 205, 214);
+    
+}
+.red{
+    background-color:red;
+}
+.yellow{
+    background-color:yellow;
+}
+.orange{
+    background-color:orange;
+}
+
+.magenta{
+    background-color:magenta;
+}
+.pink{
+    background-color:pink;
 }
