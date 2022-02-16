@@ -1,23 +1,65 @@
-import "./App.css";
+import React, { useState } from 'react'
+import Form from './Form'
+import Filter from './Filter'
+import AllTask from './AllTask'
 
-function App(props) {
+export default function () {
+  const [filter, setFilter] = useState("All")
+  const [newId, setNewId] = useState(2)
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      name: "Task-1",
+      done: false,
+    }]
+  );
+  const formSubmit = (value) => {
+    // console.log(value);
+    const newTask = {
+      id: newId,
+      name: value,
+      done: false,
+    }
+    setTasks([...tasks, newTask])
+    setNewId(newId + 1)
+  }
+
+  const onCheckHandler = (id, checked) => {
+    // console.log(id+ " "+checked); 
+    setTasks(tasks.map(item => {
+      return item.id === id ? { ...item, done: checked } : item;
+    }));
+  };
+  const onFilterChange = (newValue) => {
+    // console.log(newValue);
+    setFilter(newValue)
+  }
   
-  return (
-     
-        <div className="card">
-          <h2 className="head">{props.name}</h2>
-          <div className="img">👨</div>
-          <div className="body">
-            <p>ID   : {props.id}</p>
-            <p>City : {props.city}</p>
-            <p>Age  : {props.age}</p>
-          </div>
-          <button className="btn">Read More</button>
-          <footer>Proud to be Indian</footer>
-        </div>
+  const filterTasks = () => {
+    // "All", "Active", "Completed"
+    if (filter === 'Active') {
+      return tasks.filter(item => item.done === false);
+    } else if(filter === 'Completed') {
+      return tasks.filter(item => item.done === true);
     
-  )
-  
-};
+    }
 
-export default App;
+    return tasks;
+  }
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
+          <div className="card card-white">
+            <div className="card-body">
+              <Form onSubmit={formSubmit} />
+              <Filter onFilterChange={onFilterChange} />
+              <AllTask tasks={filterTasks()} onCheckHandler={onCheckHandler} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  )
+}
